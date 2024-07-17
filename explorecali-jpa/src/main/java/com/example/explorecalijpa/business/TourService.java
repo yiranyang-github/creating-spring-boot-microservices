@@ -27,17 +27,19 @@ public class TourService {
       String bullets, String keywords, Difficulty difficulty, Region region) {
 
     TourPackage tourPackage = tourPackageRepository.findByName(tourPackageName)
-        .orElseThrow(() -> new RuntimeException("Tour Package not found for id:" + tourPackageName));
+        .orElseThrow(() -> new RuntimeException("Tour Package not found for Name:" + tourPackageName));
     return tourRepository.save(new Tour(title, description, blurb,
         price, duration, bullets, keywords, tourPackage, difficulty, region));
   }
-
+// return all the tour by that difficulty 
   public List<Tour> lookupByDifficulty(Difficulty difficulty) {
-    return Collections.emptyList();
+    
+    return tourRepository.findByDifficulty(difficulty);
   }
 
+  //return a tourpackage with a certain name
   public List<Tour> lookupByPackage(String tourPackageCode) {
-    return Collections.emptyList();
+    return tourRepository.findByTourPackageCode(tourPackageCode);
   }
 
   public long total() {
